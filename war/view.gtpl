@@ -37,7 +37,7 @@
 
     <body>
         <script src="/js/view.js" type="text/javascript"></script>
-    
+
         <h1><a href="/">Groovy web console</a></h1>
 
         <div id="shareThis">
@@ -54,7 +54,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href="#" onclick="return TweetAndTrack.open(this, 'http://groovyconsole.appspot.com/script/${script.key.id}');">
+                        <a href="#" onclick="return TweetAndTrack.open(this, 'http://pk0iye.appspot.com/script/${script.key.id}');">
                             <span style="display:none;">${script.title} (via #groovywebconsole)</span>
                             <table>
                                 <tr>
@@ -111,7 +111,7 @@
         <div id="commentsArea">
             <script>
                 var idcomments_acct = 'ffac2056f3a0f603b8799858d3af8299';
-                var idcomments_post_id = 'http://groovyconsole.appspot.com/view.groovy?id=${script.key.id}';
+                var idcomments_post_id = 'http://pk0iye.appspot.com/view.groovy?id=${script.key.id}';
                 var idcomments_post_url;
                 </script>
                 <span id="IDCommentsPostTitle" style="display:none"></span>

@@ -22,7 +22,7 @@ builder.feed(xmlns: "http://www.w3.org/2005/Atom") {
     id "http://groovyconsole.appspot.com/"
     title "Groovy Web Console for the Groovy Programming Language"
     subtitle "Sharing Groovy programming language snippets, one script at a time"
-    link href: "http://groovyconsole.appspot.com/", rel: "self"
+    link href: "http://pk0iye.appspot.com/", rel: "self"
     updated isoTime.format(entities[0].dateCreated)
     author {
         name "Guillaume Laforge"
@@ -34,9 +34,9 @@ builder.feed(xmlns: "http://www.w3.org/2005/Atom") {
         def authorText = entity.author && entity.author != 'Anonymous' ? entity.author : 'Anonymous'
         def titleText = entity.title ?: 'Untitled'
         entry {
-            id "http://groovyconsole.appspot.com/script/${entity.key.id}"
+            id "http://pk0iye.appspot.com/script/${entity.key.id}"
             title titleText
-            link href: "http://groovyconsole.appspot.com/script/${entity.key.id}"
+            link href: "http://pk0iye.appspot.com/script/${entity.key.id}"
             updated isoTime.format(entity.dateCreated)
             author {
                 name authorText
