@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    // Setup editors
     outputCm = CodeMirror(document.getElementById("output"), {
         lineNumbers: true,
         mode: { name: "groovy"},
@@ -7,8 +8,10 @@ $(document).ready(function() {
 
     stacktraceCm = CodeMirror(document.getElementById("stacktrace"), {
         lineNumbers: true,
-        mode: { name: "groovy"},
-        value: "Stacktrace Panel: Script errors appear here"
+        mode: { name: "xml"},
+        submitFunction: function() {
+            jQuery(".load-file").click();
+        }
     });
 
     editor = CodeMirror.fromTextArea(document.getElementById('script'), {
@@ -17,17 +20,44 @@ $(document).ready(function() {
         continuousScanning: 500,
         lineNumbers: true,
         textWrapping: false,
-        tabMode: "spaces",
         mode: { name: "groovy"},
         submitFunction: function() {
             jQuery("#executeButton").click();
         }
     });
 
+    warningText = '<!-- NOTE: This is a viewer only; files must be loaded in the script and changes here are not saved. -->\n';
+
+    // Default content
     jQuery("#script").load("./data/sample.groovy", function(text) {
         editor.setValue(text);
     });
 
+
+    jQuery("#owl-file").load("./data/test_biopax.owl", function(text) {
+        stacktraceCm.setValue(warningText + text);
+    });
+
+    // Sample files
+    $("#biopax3-short-metabolic-pathway").click(function(event) {
+        jQuery("#owl-file").load("./data/biopax3-short-metabolic-pathway.owl", function (text) {
+            stacktraceCm.setValue(warningText + text);
+        });
+    });
+
+    $("#raf_map_kinase_cascade_reactome").click(function(event) {
+        jQuery("#owl-file").load("./data/raf_map_kinase_cascade_reactome.owl", function (text) {
+            stacktraceCm.setValue(warningText + text);
+        });
+    });
+
+    $("#dna_replication").click(function(event) {
+        jQuery("#owl-file").load("./data/dna_replication.owl", function (text) {
+            stacktraceCm.setValue(warningText + text);
+        });
+    });
+
+    // Run script
     $("#executeButton").click(function(event) {
         $.ajax({
             type: "POST",
@@ -46,35 +76,20 @@ $(document).ready(function() {
                         data = {executionResult: "", outputText: "", stacktraceText: ""};
                     }
 
-                    //$('#output').text(data.outputText);
-                    //$('#result').text(data.executionResult);
-                    //$('#stacktrace').text(data.stacktraceText);
-
-                    console.log("tehoun");
-                    console.log("O: " + data.outputText);
-                    console.log("R: " + data.executionResult);
-                    console.log("S: " + data.stacktraceText);
-
                     if (data.outputText.length > 0) {
-                        //$('#output').text(data.outputText).fadeIn();
                         outputCm.setValue(data.outputText);
+                    } else if (data.stacktraceText.length > 0) {
+                        outputCm.setValue(data.stacktraceText);
                     } else {
-                        //$('#output').fadeOut();
-                        outputCm.setValue("No output");
-                    }
-
-                    if (data.stacktraceText.length > 0) {
-                        //$('#stacktrace').text(data.stacktraceText).fadeIn();
-                        stacktraceCm.setValue(data.stacktraceText);
-                    } else {
-                        //$('#stacktrace').fadeOut();
-                        stacktraceCm.setValue("No errors");
+                        stacktraceCm.setValue("ERROR: Output could not be parsed");
                     }
                 }
             }
         });
     });
 
+    // Resize editors
+    // Taken from: http://jsfiddle.net/xBjnY/122/
     window.onresize = resize;
     resize();
 
