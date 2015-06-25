@@ -1,2 +1,3 @@
-Source code of the Groovy Web Console hosted on Google App Engine
-http://pk0iye.appspot.com
+Modified version of Groovy Web Console hosted on Google App Engine that makes use of Bootstrap and tries to emulate the JSFiddle layout
+
+http://pk0iye.appspot.com/indexLayout.html
