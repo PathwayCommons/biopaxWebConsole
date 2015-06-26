@@ -11,7 +11,8 @@ $(document).ready(function() {
         mode: { name: "xml"},
         submitFunction: function() {
             jQuery(".load-file").click();
-        }
+        },
+        styleActiveLine: true
     });
 
     editor = CodeMirror.fromTextArea(document.getElementById('script'), {
@@ -23,7 +24,8 @@ $(document).ready(function() {
         mode: { name: "groovy"},
         submitFunction: function() {
             jQuery("#executeButton").click();
-        }
+        },
+        styleActiveLine: true
     });
 
     warningText = '<!-- NOTE: This is a viewer only; files must be loaded in the script and changes made here are not saved. -->\n';
@@ -33,38 +35,55 @@ $(document).ready(function() {
         editor.setValue(text);
     });
 
+    var owlFilename = "./data/akt_signaling_pathway.owl";
+    filenameText = "<!-- FILE: " + owlFilename + " -->\n";
 
-    jQuery("#owl-file-contents").load("./data/akt_signaling_pathway.owl", function(text) {
-        owlfileCm.setValue(warningText + text);
+    jQuery("#owl-file-contents").load(owlFilename, function(text) {
+        owlfileCm.setValue(warningText + filenameText + text);
     });
 
     // Sample files
     $("#akt_signaling_pathway").click(function(event) {
-        jQuery("#owl-file-contents").load("./data/akt_signaling_pathway.owl", function (text) {
-            owlfileCm.setValue(warningText + text);
+        var owlFilename = "./data/akt_signaling_pathway.owl";
+        filenameText = "<!-- FILE: " + owlFilename + " -->\n";
+
+        jQuery("#owl-file-contents").load(owlFilename, function(text) {
+            owlfileCm.setValue(warningText + filenameText + text);
         });
     });
     $("#biopax3-short-metabolic-pathway").click(function(event) {
-        jQuery("#owl-file-contents").load("./data/biopax3-short-metabolic-pathway.owl", function (text) {
-            owlfileCm.setValue(warningText + text);
+        var owlFilename = "./data/biopax3-short-metabolic-pathway.owl";
+        filenameText = "<!-- FILE: " + owlFilename + " -->\n";
+
+        jQuery("#owl-file-contents").load(owlFilename, function(text) {
+            owlfileCm.setValue(warningText + filenameText + text);
         });
     });
 
     $("#fanconi_anemia_reactome").click(function(event) {
-        jQuery("#owl-file-contents").load("./data/fanconi_anemia_reactome.owl", function (text) {
-            owlfileCm.setValue(warningText + text);
+        var owlFilename = "./data/fanconi_anemia_reactome.owl";
+        filenameText = "<!-- FILE: " + owlFilename + " -->\n";
+
+        jQuery("#owl-file-contents").load(owlFilename, function(text) {
+            owlfileCm.setValue(warningText + filenameText + text);
         });
     });
 
     $("#intrinsic_apoptosis_reactome").click(function(event) {
-        jQuery("#owl-file-contents").load("./data/intrinsic_apoptosis_reactome.owl", function (text) {
-            owlfileCm.setValue(warningText + text);
+        var owlFilename = "./data/intrinsic_apoptosis_reactome.owl";
+        filenameText = "<!-- FILE: " + owlFilename + " -->\n";
+
+        jQuery("#owl-file-contents").load(owlFilename, function(text) {
+            owlfileCm.setValue(warningText + filenameText + text);
         });
     });
 
-    $("#dna_replication").click(function(event) {
-        jQuery("#owl-file-contents").load("./data/dna_replication.owl", function (text) {
-            owlfileCm.setValue(warningText + text);
+    $("#raf_map_kinase_cascade_reactome").click(function(event) {
+        var owlFilename = "./data/raf_map_kinase_cascade_reactome.owl";
+        filenameText = "<!-- FILE: " + owlFilename + " -->\n";
+
+        jQuery("#owl-file-contents").load(owlFilename, function(text) {
+            owlfileCm.setValue(warningText + filenameText + text);
         });
     });
 
@@ -145,6 +164,19 @@ $(document).ready(function() {
     jQuery.resizable('div_right', "h");
     jQuery.resizable('div_left', "h");
 
+    var $loading = $('#loadingDiv').hide();
+
+    // NOTE: waitingDialog from waitingDialog.js
+    $(document)
+        .ajaxStart(function () {
+            //$loading.show();
+            waitingDialog.show('Running ...', { dialogSize: 'sm', progressType: 'info' });
+        })
+        .ajaxStop(function () {
+            //$loading.hide();
+            waitingDialog.hide();
+        });
+
     //$('#textarea-container').tooltip({
     //    animated: 'fade',
     //    placement: 'right'
@@ -164,13 +196,4 @@ $(document).ready(function() {
     //    animated: 'fade',
     //    placement: 'left'
     //});
-
-    $('#loadingDiv')
-        .hide()
-        .ajaxStart(function() {
-            $(this).show();
-        })
-        .ajaxStop(function() {
-            $(this).hide();
-        });
 });
