@@ -43,7 +43,9 @@
                             <ul class="dropdown-menu">
                                 <li id="biopax3-short-metabolic-pathway" class="load-file"><a href="javascript:void(0)">biopax3-short-metabolic-pathway.owl</a></li>
                                 <li id="raf_map_kinase_cascade_reactome" class="load-file"><a href="javascript:void(0)">raf_map_kinase_cascade_reactome.owl</a></li>
-                                <!--<li id="dna_replication" class="load-file"><a href="javascript:void(0)">dna_replication.owl</a></li>-->
+                                <li id="akt_signaling_pathway" class="load-file"><a href="javascript:void(0)">akt_signaling_pathway.owl</a></li>
+                                <li id="fanconi_anemia_reactome" class="load-file"><a href="javascript:void(0)">fanconi_anemia_reactome.owl</a></li>
+                                <li id="intrinsic_apoptosis_reactome" class="load-file"><a href="javascript:void(0)">intrinsic_apoptosis_reactome.owl</a></li>
                             </ul>
                         </li>
                         <li><a href="https://github.com/cannin/biopaxWebConsole" target="_blank">About</a></li>
@@ -70,11 +72,12 @@
             </div>
             <div id="div_vertical" class="handler_vertical"></div>
             <div id="RightPanel">
-                <div id="stacktrace" class="window top" data-toggle="tooltip" title="BioPAX OWL file contents appear here">
-                    <textarea id="owl-file" class="hidden"></textarea>
+                <div id="owlfile" class="window top" data-toggle="tooltip" title="BioPAX OWL file contents appear here">
+                    <textarea id="owl-file-contents" class="hidden"></textarea>
                 </div>
                 <div id="div_right" class="handler_horizontal"></div>
                     <div id="snippets" class="window bottom" data-toggle="tooltip" title="View code snippets here">
+                        <h2 class="code_snippet">Code Snippets</h2>
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">

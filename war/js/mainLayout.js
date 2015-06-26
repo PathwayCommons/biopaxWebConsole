@@ -6,7 +6,7 @@ $(document).ready(function() {
         value: "Output Panel: Script output appears here"
     });
 
-    stacktraceCm = CodeMirror(document.getElementById("stacktrace"), {
+    owlfileCm = CodeMirror(document.getElementById("owlfile"), {
         lineNumbers: true,
         mode: { name: "xml"},
         submitFunction: function() {
@@ -26,7 +26,7 @@ $(document).ready(function() {
         }
     });
 
-    warningText = '<!-- NOTE: This is a viewer only; files must be loaded in the script and changes here are not saved. -->\n';
+    warningText = '<!-- NOTE: This is a viewer only; files must be loaded in the script and changes made here are not saved. -->\n';
 
     // Default content
     jQuery("#script").load("./data/sample.groovy", function(text) {
@@ -34,26 +34,37 @@ $(document).ready(function() {
     });
 
 
-    jQuery("#owl-file").load("./data/test_biopax.owl", function(text) {
-        stacktraceCm.setValue(warningText + text);
+    jQuery("#owl-file-contents").load("./data/akt_signaling_pathway.owl", function(text) {
+        owlfileCm.setValue(warningText + text);
     });
 
     // Sample files
+    $("#akt_signaling_pathway").click(function(event) {
+        jQuery("#owl-file-contents").load("./data/akt_signaling_pathway.owl", function (text) {
+            owlfileCm.setValue(warningText + text);
+        });
+    });
     $("#biopax3-short-metabolic-pathway").click(function(event) {
-        jQuery("#owl-file").load("./data/biopax3-short-metabolic-pathway.owl", function (text) {
-            stacktraceCm.setValue(warningText + text);
+        jQuery("#owl-file-contents").load("./data/biopax3-short-metabolic-pathway.owl", function (text) {
+            owlfileCm.setValue(warningText + text);
         });
     });
 
-    $("#raf_map_kinase_cascade_reactome").click(function(event) {
-        jQuery("#owl-file").load("./data/raf_map_kinase_cascade_reactome.owl", function (text) {
-            stacktraceCm.setValue(warningText + text);
+    $("#fanconi_anemia_reactome").click(function(event) {
+        jQuery("#owl-file-contents").load("./data/fanconi_anemia_reactome.owl", function (text) {
+            owlfileCm.setValue(warningText + text);
+        });
+    });
+
+    $("#intrinsic_apoptosis_reactome").click(function(event) {
+        jQuery("#owl-file-contents").load("./data/intrinsic_apoptosis_reactome.owl", function (text) {
+            owlfileCm.setValue(warningText + text);
         });
     });
 
     $("#dna_replication").click(function(event) {
-        jQuery("#owl-file").load("./data/dna_replication.owl", function (text) {
-            stacktraceCm.setValue(warningText + text);
+        jQuery("#owl-file-contents").load("./data/dna_replication.owl", function (text) {
+            owlfileCm.setValue(warningText + text);
         });
     });
 
@@ -81,7 +92,7 @@ $(document).ready(function() {
                     } else if (data.stacktraceText.length > 0) {
                         outputCm.setValue(data.stacktraceText);
                     } else {
-                        stacktraceCm.setValue("ERROR: Output could not be parsed");
+                        outputCm.setValue("ERROR: Output could not be parsed");
                     }
                 }
             }
@@ -144,7 +155,7 @@ $(document).ready(function() {
     //    placement: 'right'
     //});
     //
-    //$('#stacktrace').tooltip({
+    //$('#owlfile').tooltip({
     //    animated: 'fade',
     //    placement: 'left'
     //});

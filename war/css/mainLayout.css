@@ -33,14 +33,12 @@
 }
 
 .top {
-    height: 75%;
+    height: 50%;
 }
 
 .bottom {
-    height: 25%;
+    height: 50%;
 }
-
-/* THOENUT */
 
 body {
 	font-family: Arial;
@@ -89,7 +87,7 @@ pre {
 
 .code_snippet {
     font-family: Arial, sans-serif;
-    font-size: small;
+    font-size: medium;
     color: gray;
 }
 
@@ -108,10 +106,6 @@ pre {
 	background-color: white;
 	right: 10px;
 	top: 12px;
-}
-
-h1 > a {
-    text-decoration: none;
 }
 
 .CodeMirror {
@@ -163,6 +157,10 @@ h1 > a {
 .panel-body {
     padding: 0px !important;
     padding-top: 17px !important;
+}
+
+.panel-group {
+    margin: 20px;
 }
 
 #output2 {
