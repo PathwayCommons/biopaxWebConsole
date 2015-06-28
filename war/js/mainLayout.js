@@ -159,7 +159,7 @@ $(document).ready(function() {
 
     var gistIds = {
         "328ac70995da3472d196":"bwcBasicTraversal.groovy",
-        "ba10cbf85fdab34f0778":"installPkgFromDir.R",
+        "b6f7ba64e1156b001282":"bwcListFiles.groovy",
         "3a31bd3b91a7e610a733":"jenkins_build_install.R",
         "c78097528a2d2f34bdea":"deployAppWithData.R",
         "b77c366d2a94592cd67e":"jenkins_build.R",
@@ -177,7 +177,7 @@ $(document).ready(function() {
             //url: "https://api.github.com/gists/" + gistId,
             url: link,
             dataType: "text",
-            async: false,
+            async: true,
             success: function (returnData) {
                 //var description = returnData.description;
                 //var filename = getFirstKey(returnData.files);
@@ -194,12 +194,14 @@ $(document).ready(function() {
                 $newPanel.attr("id", "template" + hash);
                 $newPanel.find(".collapse").addClass("collapse").removeClass("in");
 
-                $newPanel.find(".panel-heading").attr("id",  "heading" + hash);
+                $newPanel.find(".panel-heading").attr("id", "heading" + hash);
                 $newPanel.find(".panel-collapse").attr("id", "collapse" + hash);
                 $newPanel.find(".panel-collapse").attr("aria-labelledby", "heading" + hash);
+
+                $newPanel.find(".panel-title-button").attr("id", "panelTitleButton" + hash);
                 $newPanel.find(".panel-title-button").attr("href", "#collapse" + hash);
                 $newPanel.find(".panel-title-button").attr("aria-controls", "collapse" + hash);
-                $newPanel.find(".panel-title-button").text(description);
+                $newPanel.find(".panel-title-button").html('<i class="fa fa-plus-square-o fa-fw"></i>&nbsp;' + description);
 
                 $newPanel.find(".snippetLink").attr("id", gistId);
                 $newPanel.find(".snippetRaw").attr("href", gistLink);
@@ -208,7 +210,15 @@ $(document).ready(function() {
 
                 $("#accordion").append($newPanel);
 
-                $('#' + gistId).click(function(event) {
+                $('#panelTitleButton' + hash).click(function(event) {
+                    if ($(this).find("i").hasClass('fa fa-plus-square-o fa-fw')) {
+                        $(this).find("i").attr('class', 'fa fa-minus-square-o fa-fw');
+                    } else {
+                        $(this).find("i").attr('class', 'fa fa-plus-square-o fa-fw');
+                    }
+                });
+
+                $('#' + gistId).click(function (event) {
                     //alert($(this).attr("id") + " A: " +  $(this).attr("class") + JSON.stringify($(this)));
                     editor.setValue($('#Script' + gistId).text());
                 });
