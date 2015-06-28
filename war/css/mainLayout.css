@@ -1,10 +1,10 @@
 #LeftPanel {
-    width: 50%;
+    width: 60%;
     float: left;
 }
 
 #RightPanel {
-    width: 50%;
+    width: 40%;
     float: right;
 }
 
@@ -33,11 +33,25 @@
 }
 
 .top {
-    height: 15%;
+    height: 50%;
 }
 
 .bottom {
-    height: 85%;
+    height: 50%;
+}
+
+#owlfile {
+    height: 50%;
+}
+
+#snippets {
+    height: 50%;
+    overflow-y: hidden;
+}
+
+#container {
+    height: 300px;
+    overflow: auto;
 }
 
 body {
@@ -80,7 +94,7 @@ pre {
     color: gray;
 }
 
-.code_snippet {
+.snippetHeader {
     font-family: Arial, sans-serif;
     font-size: medium;
     color: gray;

@@ -19,10 +19,6 @@
         <script src="/js/mainLayout.js" type="text/javascript"></script>
         <script src="/js/waitingDialog.js" type="text/javascript"></script>
 
-        <!--<div id="loadingDiv">-->
-            <!--<img src="/images/ajax-spinner-blue.gif">-->
-        <!--</div>-->
-
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -75,10 +71,11 @@
                     <textarea id="owl-file-contents" class="hidden"></textarea>
                 </div>
                 <div id="div_right" class="handler_horizontal"></div>
-                    <div id="snippets" class="window bottom" data-toggle="tooltip" title="View code snippets here">
-                        <h2 class="code_snippet">Code Snippets</h2>
-                        <p class="snippetLink"><a href="http://www.biopax.org/m2site/paxtools-4.3.0/apidocs/index.html" target="_blank">BioPAX Javadoc</a></p>
-                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div id="snippets" class="window bottom" data-toggle="tooltip" title="View code snippets here">
+                    <h2 class="snippetHeader">Code Snippets</h2>
+                    <p class="snippetLink"><a href="http://www.biopax.org/m2site/paxtools-4.3.0/apidocs/index.html" target="_blank">Paxtools Javadoc</a></p>
+                    <div id="container">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
                             <div id="templateSnippet" class="panel panel-default template">
                                 <div class="panel-heading" role="tab" id="heading1">
                                     <h4 class="panel-title">
@@ -89,7 +86,7 @@
                                 </div>
                                 <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
                                     <div class="panel-body">
-                                        <span class="snippetLink"><a href="javascript:void(0)">Copy to Editor</a></span>
+                                        <span class="snippetLink"><a href="javascript:void(0)">Copy to Editor</a>&nbsp;<a class="snippetRaw" href="#" target="_blank">(View on GitHub)</a></span>
                                         <!--<script class="gistScript" src="https://gist.github.com/cannin/b6f7ba64e1156b001282.js"></script>-->
                                     </div>
                                 </div>

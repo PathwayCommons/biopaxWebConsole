@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // Setup editors
+    // SETUP EDITORS
     outputCm = CodeMirror(document.getElementById("output"), {
         lineNumbers: true,
         mode: { name: "groovy"},
@@ -30,7 +30,7 @@ $(document).ready(function() {
 
     warningText = '<!-- NOTE: This is a viewer only; files must be loaded in the script and changes made here are not saved. -->\n';
 
-    // Default content
+    // DEFAULT CONTENT
     jQuery("#script").load("./data/sample.groovy", function(text) {
         editor.setValue(text);
     });
@@ -42,52 +42,23 @@ $(document).ready(function() {
         owlfileCm.setValue(warningText + filenameText + text);
     });
 
-    // Sample files
-    $("#akt_signaling_pathway").click(function(event) {
-        var owlFilename = "./data/akt_signaling_pathway.owl";
-        filenameText = "<!-- FILE: " + owlFilename + " -->\n";
+    // SAMPLE FILES
+    var sampleFiles = ["akt_signaling_pathway", "biopax3-short-metabolic-pathway",
+        "fanconi_anemia_reactome", "intrinsic_apoptosis_reactome",
+        "raf_map_kinase_cascade_reactome"];
 
-        jQuery("#owl-file-contents").load(owlFilename, function(text) {
-            owlfileCm.setValue(warningText + filenameText + text);
-        });
-    });
-    $("#biopax3-short-metabolic-pathway").click(function(event) {
-        var owlFilename = "./data/biopax3-short-metabolic-pathway.owl";
-        filenameText = "<!-- FILE: " + owlFilename + " -->\n";
+    $.each(sampleFiles, function(i, val) {
+        $('#' + val).click(function(event) {
+            var owlFilename = './data/' + val + '.owl';
+            filenameText = "<!-- FILE: " + owlFilename + " -->\n";
 
-        jQuery("#owl-file-contents").load(owlFilename, function(text) {
-            owlfileCm.setValue(warningText + filenameText + text);
-        });
-    });
-
-    $("#fanconi_anemia_reactome").click(function(event) {
-        var owlFilename = "./data/fanconi_anemia_reactome.owl";
-        filenameText = "<!-- FILE: " + owlFilename + " -->\n";
-
-        jQuery("#owl-file-contents").load(owlFilename, function(text) {
-            owlfileCm.setValue(warningText + filenameText + text);
+            jQuery("#owl-file-contents").load(owlFilename, function(text) {
+                owlfileCm.setValue(warningText + filenameText + text);
+            });
         });
     });
 
-    $("#intrinsic_apoptosis_reactome").click(function(event) {
-        var owlFilename = "./data/intrinsic_apoptosis_reactome.owl";
-        filenameText = "<!-- FILE: " + owlFilename + " -->\n";
-
-        jQuery("#owl-file-contents").load(owlFilename, function(text) {
-            owlfileCm.setValue(warningText + filenameText + text);
-        });
-    });
-
-    $("#raf_map_kinase_cascade_reactome").click(function(event) {
-        var owlFilename = "./data/raf_map_kinase_cascade_reactome.owl";
-        filenameText = "<!-- FILE: " + owlFilename + " -->\n";
-
-        jQuery("#owl-file-contents").load(owlFilename, function(text) {
-            owlfileCm.setValue(warningText + filenameText + text);
-        });
-    });
-
-    // Run script
+    // RUN SCRIPT
     $("#executeButton").click(function(event) {
         $.ajax({
             type: "POST",
@@ -118,7 +89,7 @@ $(document).ready(function() {
         });
     });
 
-    // Resize editors
+    // RESIZE EDITORS
     // Taken from: http://jsfiddle.net/xBjnY/122/
     window.onresize = resize;
     resize();
@@ -156,6 +127,9 @@ $(document).ready(function() {
                     jQuery('#' + resizerID).next().width(jQuery('#' + resizerID).next().width()- (end-start));
                 }
                 start = end;
+
+                // NOTE: Allow the div to expand the original size
+                $('#container').css({"height": $('#snippets').height()});
             });
         });
     }
@@ -164,8 +138,7 @@ $(document).ready(function() {
     jQuery.resizable('div_right', "h");
     jQuery.resizable('div_left', "h");
 
-    var $loading = $('#loadingDiv').hide();
-
+    // WAITING DIALOG
     // NOTE: waitingDialog from waitingDialog.js
     $(document)
         .ajaxStart(function() {
@@ -197,10 +170,12 @@ $(document).ready(function() {
 
     $.each(gistIds, function(gistId, filename) {
         var hash = gistId;
+        var link = "https://gist.githubusercontent.com/cannin/" + gistId + "/raw/" + filename;
+        var gistLink = "https://gist.github.com/cannin/" + gistId;
 
         $.ajax({
             //url: "https://api.github.com/gists/" + gistId,
-            url: "https://gist.githubusercontent.com/cannin/" + gistId + "/raw/" + filename,
+            url: link,
             dataType: "text",
             async: false,
             success: function (returnData) {
@@ -224,11 +199,12 @@ $(document).ready(function() {
                 $newPanel.find(".panel-collapse").attr("aria-labelledby", "heading" + hash);
                 $newPanel.find(".panel-title-button").attr("href", "#collapse" + hash);
                 $newPanel.find(".panel-title-button").attr("aria-controls", "collapse" + hash);
-                $newPanel.find(".snippetLink").attr("id", gistId);
-
                 $newPanel.find(".panel-title-button").text(description);
 
-                $newPanel.find(".panel-body").append('<pre id="Script' + gistId + '" class="templateClone"><code class="groovy">' + content + '</code></pre>');
+                $newPanel.find(".snippetLink").attr("id", gistId);
+                $newPanel.find(".snippetRaw").attr("href", gistLink);
+
+                $newPanel.find(".panel-body").append('<pre id="Script' + gistId + '" class="templateClone"><code class="java">' + content + '</code></pre>');
 
                 $("#accordion").append($newPanel);
 
@@ -240,29 +216,31 @@ $(document).ready(function() {
         });
     });
 
-    // NOTE: Does not run if async is false in Gist download
+    // NOTE: Does not run if async is true in Gist download
     $("code").each(function(i, codeDiv) {
         hljs.highlightBlock(codeDiv);
     });
-
-    //$('#textarea-container').tooltip({
-    //    animated: 'fade',
-    //    placement: 'right'
-    //});
-    //
-    //$('#output').tooltip({
-    //    animated: 'fade',
-    //    placement: 'right'
-    //});
-    //
-    //$('#owlfile').tooltip({
-    //    animated: 'fade',
-    //    placement: 'left'
-    //});
-    //
-    //$('#snippets').tooltip({
-    //    animated: 'fade',
-    //    placement: 'left'
-    //});
 });
+
+//var $loading = $('#loadingDiv').hide();
+//
+//$('#textarea-container').tooltip({
+//    animated: 'fade',
+//    placement: 'right'
+//});
+//
+//$('#output').tooltip({
+//    animated: 'fade',
+//    placement: 'right'
+//});
+//
+//$('#owlfile').tooltip({
+//    animated: 'fade',
+//    placement: 'left'
+//});
+//
+//$('#snippets').tooltip({
+//    animated: 'fade',
+//    placement: 'left'
+//});
 
