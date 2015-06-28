@@ -168,14 +168,82 @@ $(document).ready(function() {
 
     // NOTE: waitingDialog from waitingDialog.js
     $(document)
-        .ajaxStart(function () {
+        .ajaxStart(function() {
             //$loading.show();
             waitingDialog.show('Running ...', { dialogSize: 'sm', progressType: 'info' });
         })
-        .ajaxStop(function () {
+        .ajaxStop(function() {
             //$loading.hide();
             waitingDialog.hide();
         });
+
+    // GET GISTS
+    function getFirstKey(data) {
+        for(elem in data) {
+            return elem;
+        }
+    }
+
+    var gistIds = {
+        "328ac70995da3472d196":"bwcBasicTraversal.groovy",
+        "ba10cbf85fdab34f0778":"installPkgFromDir.R",
+        "3a31bd3b91a7e610a733":"jenkins_build_install.R",
+        "c78097528a2d2f34bdea":"deployAppWithData.R",
+        "b77c366d2a94592cd67e":"jenkins_build.R",
+        "819e73426b4ebd5752d5":"checkTestCoverage.R"
+    };
+
+    var $template = $(".template");
+
+    $.each(gistIds, function(gistId, filename) {
+        var hash = gistId;
+
+        $.ajax({
+            //url: "https://api.github.com/gists/" + gistId,
+            url: "https://gist.githubusercontent.com/cannin/" + gistId + "/raw/" + filename,
+            dataType: "text",
+            async: false,
+            success: function (returnData) {
+                //var description = returnData.description;
+                //var filename = getFirstKey(returnData.files);
+                //var tmp = returnData.files[filename];
+                //var raw = tmp.raw_url;
+                //var content = tmp.content;
+                var content = returnData;
+                var description = filename;
+
+                content = content.replace(/</g, '&lt;');
+                content = content.replace(/>/g, '&gt;');
+
+                var $newPanel = $template.clone();
+                $newPanel.attr("id", "template" + hash);
+                $newPanel.find(".collapse").addClass("collapse").removeClass("in");
+
+                $newPanel.find(".panel-heading").attr("id",  "heading" + hash);
+                $newPanel.find(".panel-collapse").attr("id", "collapse" + hash);
+                $newPanel.find(".panel-collapse").attr("aria-labelledby", "heading" + hash);
+                $newPanel.find(".panel-title-button").attr("href", "#collapse" + hash);
+                $newPanel.find(".panel-title-button").attr("aria-controls", "collapse" + hash);
+                $newPanel.find(".snippetLink").attr("id", gistId);
+
+                $newPanel.find(".panel-title-button").text(description);
+
+                $newPanel.find(".panel-body").append('<pre id="Script' + gistId + '" class="templateClone"><code class="groovy">' + content + '</code></pre>');
+
+                $("#accordion").append($newPanel);
+
+                $('#' + gistId).click(function(event) {
+                    //alert($(this).attr("id") + " A: " +  $(this).attr("class") + JSON.stringify($(this)));
+                    editor.setValue($('#Script' + gistId).text());
+                });
+            }
+        });
+    });
+
+    // NOTE: Does not run if async is false in Gist download
+    $("code").each(function(i, codeDiv) {
+        hljs.highlightBlock(codeDiv);
+    });
 
     //$('#textarea-container').tooltip({
     //    animated: 'fade',
@@ -197,3 +265,4 @@ $(document).ready(function() {
     //    placement: 'left'
     //});
 });
+

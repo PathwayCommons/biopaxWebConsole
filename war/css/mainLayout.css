@@ -33,11 +33,11 @@
 }
 
 .top {
-    height: 50%;
+    height: 15%;
 }
 
 .bottom {
-    height: 50%;
+    height: 85%;
 }
 
 body {
@@ -159,6 +159,7 @@ pre {
     margin: 20px;
 }
 
+/*
 #output2 {
     position:fixed;
     top:5px;
@@ -167,3 +168,71 @@ pre {
     z-index:99;
     color:black;
 }
+*/
+
+.snippetLink {
+    margin-left: 20px;
+}
+
+.panel-heading {
+    padding: 7px !important;
+}
+
+.panel-title {
+    font-size: smaller !important;
+}
+
+.templateClone {
+    margin: 20px !important;
+}
+
+#templateSnippet {
+    display: none;
+}
+
+code {
+    overflow: auto;
+}
+
+/*
+#output div.CodeMirror::after {
+    z-index: 1300;
+    content: "Output";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #ddd;
+    padding: 2px 4px;
+    border-radius: 3px;
+    color: #888888;
+}
+
+#editor div.CodeMirror::after {
+    z-index: 1300;
+    content: "Script";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #ddd;
+    padding: 2px 4px;
+    border-radius: 3px;
+    color: #888888;
+}
+
+#owlfile div.CodeMirror::after {
+    z-index: 1300;
+    content: "OWL";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #ddd;
+    padding: 2px 4px;
+    border-radius: 3px;
+    color: #888888;
+}*/
