@@ -71,13 +71,8 @@ h1 {
 	color: white;
 }
 
-h2, #publishedby, .indent {
+h2 {
     margin-left: 20px;
-}
-
-pre {
-    margin-left: 5px;
-    overflow: auto;
 }
 
 .border {
@@ -100,22 +95,9 @@ pre {
     color: gray;
 }
 
-.gist {
-    margin-right: 20px;
-    margin-left: 20px;
-}
-
 #textarea-container {
     /*background: url('../images/google-app-engine-groovy.png') no-repeat 98% bottom;*/
     margin-bottom: 10px;
-}
-
-#loadingDiv {
-	position: fixed;
-	background-color: white;
-	right: 10px;
-	top: 12px;
-    z-index: 1000;
 }
 
 .CodeMirror {
@@ -160,6 +142,27 @@ pre {
     z-index: 30;
 }
 
+.snippetLink {
+    margin-left: 20px;
+}
+
+.templateClone {
+    margin: 20px !important;
+}
+
+#templateSnippet {
+    display: none;
+}
+
+/* OVERWRITE BOOTSTRAP */
+.panel-heading {
+    padding: 7px !important;
+}
+
+.panel-title {
+    font-size: smaller !important;
+}
+
 .navbar {
     margin-bottom: 0px !important;
 }
@@ -173,7 +176,30 @@ pre {
     margin: 20px;
 }
 
+code {
+    overflow: auto !important;
+    word-wrap: normal !important;
+    white-space: pre !important;
+}
+
 /*
+h2, #publishedby, .indent {
+    margin-left: 20px;
+}
+
+.gist {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+#loadingDiv {
+	position: fixed;
+	background-color: white;
+	right: 10px;
+	top: 12px;
+    z-index: 1000;
+}
+
 #output2 {
     position:fixed;
     top:5px;
@@ -182,33 +208,6 @@ pre {
     z-index:99;
     color:black;
 }
-*/
-
-.snippetLink {
-    margin-left: 20px;
-}
-
-.panel-heading {
-    padding: 7px !important;
-}
-
-.panel-title {
-    font-size: smaller !important;
-}
-
-.templateClone {
-    margin: 20px !important;
-}
-
-#templateSnippet {
-    display: none;
-}
-
-code {
-    overflow: auto;
-}
-
-/*
 #output div.CodeMirror::after {
     z-index: 1300;
     content: "Output";
