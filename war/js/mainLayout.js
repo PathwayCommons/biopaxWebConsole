@@ -201,6 +201,7 @@ $(document).ready(function() {
                 $newPanel.find(".panel-title-button").attr("id", "panelTitleButton" + hash);
                 $newPanel.find(".panel-title-button").attr("href", "#collapse" + hash);
                 $newPanel.find(".panel-title-button").attr("aria-controls", "collapse" + hash);
+                $newPanel.find(".panel-title-button").html(description);
                 $newPanel.find(".panel-title-button").html('<i class="fa fa-plus-square-o fa-fw"></i>&nbsp;' + description);
 
                 $newPanel.find(".snippetLink").attr("id", gistId);
@@ -211,7 +212,12 @@ $(document).ready(function() {
                 $("#accordion").append($newPanel);
 
                 $('#panelTitleButton' + hash).click(function(event) {
-                    if ($(this).find("i").hasClass('fa fa-plus-square-o fa-fw')) {
+                    var isCollapsed = $(this).find("i").hasClass('fa fa-plus-square-o fa-fw');
+
+                    $(".panel-title-button").find("i").attr("class", 'fa fa-plus-square-o fa-fw');
+
+                    if (isCollapsed) {
+                    //if ($(this).find("i").attr('aria-expanded') == "true") {
                         $(this).find("i").attr('class', 'fa fa-minus-square-o fa-fw');
                     } else {
                         $(this).find("i").attr('class', 'fa fa-plus-square-o fa-fw');
