@@ -177,7 +177,7 @@ $(document).ready(function() {
             //url: "https://api.github.com/gists/" + gistId,
             url: link,
             dataType: "text",
-            async: false,
+            async: true,
             success: function (returnData) {
                 //var description = returnData.description;
                 //var filename = getFirstKey(returnData.files);
