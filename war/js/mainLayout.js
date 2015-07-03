@@ -1,4 +1,38 @@
 $(document).ready(function() {
+    // SAMPLE FILES
+    var sampleFiles = [
+        "akt_signaling_pathway",
+        "biopax3-short-metabolic-pathway",
+        "fanconi_anemia_reactome",
+        "intrinsic_apoptosis_reactome",
+        "raf_map_kinase_cascade_reactome"
+    ];
+
+    var gistIds = {
+        "b6f7ba64e1156b001282":"hello.groovy",
+        "b6f7ba64e1156b001282":"bwcBasicTraversal.groovy",
+        "b6f7ba64e1156b001282":"bwcListFiles.groovy",
+        "b6f7ba64e1156b001282":"jenkins_build_install.R",
+        "b6f7ba64e1156b001282":"deployAppWithData.R",
+        "b6f7ba64e1156b001282":"jenkins_build.R",
+        "b6f7ba64e1156b001282":"checkTestCoverage.R"
+    };
+
+    var gistId = "b6f7ba64e1156b001282";
+    var gistFiles = [
+        "listFiles_0.groovy",
+        "firstModel_1.groovy",
+        "simpleIO_2.groovy",
+        "basicTraversal_3.groovy",
+        "pathAccessors_4.groovy",
+        "listProperties_5.groovy",
+        "excisor_6.groovy",
+        "merging_7.groovy",
+        "exportSif_8.groovy",
+        "graphQuery_9.groovy",
+        "combinedExample_10.groovy"
+    ];
+
     // SETUP EDITORS
     outputCm = CodeMirror(document.getElementById("output"), {
         lineNumbers: true,
@@ -15,6 +49,10 @@ $(document).ready(function() {
         styleActiveLine: true
     });
 
+    CodeMirror.commands.autocomplete = function(cm) {
+        cm.showHint({hint: CodeMirror.hint.anyword});
+    };
+
     editor = CodeMirror.fromTextArea(document.getElementById('script'), {
         height: "100%",
         width: "100%",
@@ -22,6 +60,8 @@ $(document).ready(function() {
         lineNumbers: true,
         textWrapping: false,
         mode: { name: "groovy"},
+        //extraKeys: {"Ctrl-Space": "autocomplete"},
+        extraKeys: {"Ctrl-Space": "autocomplete"},
         submitFunction: function() {
             jQuery("#executeButton").click();
         },
@@ -42,11 +82,7 @@ $(document).ready(function() {
         owlfileCm.setValue(warningText + filenameText + text);
     });
 
-    // SAMPLE FILES
-    var sampleFiles = ["akt_signaling_pathway", "biopax3-short-metabolic-pathway",
-        "fanconi_anemia_reactome", "intrinsic_apoptosis_reactome",
-        "raf_map_kinase_cascade_reactome"];
-
+    // LOAD SAMPLE FILE
     $.each(sampleFiles, function(i, val) {
         $('#' + val).click(function(event) {
             var owlFilename = './data/' + val + '.owl';
@@ -157,19 +193,12 @@ $(document).ready(function() {
         }
     }
 
-    var gistIds = {
-        "328ac70995da3472d196":"bwcBasicTraversal.groovy",
-        "b6f7ba64e1156b001282":"bwcListFiles.groovy",
-        "3a31bd3b91a7e610a733":"jenkins_build_install.R",
-        "c78097528a2d2f34bdea":"deployAppWithData.R",
-        "b77c366d2a94592cd67e":"jenkins_build.R",
-        "819e73426b4ebd5752d5":"checkTestCoverage.R"
-    };
-
+    // LOAD SAMPLE FILES
     var $template = $(".template");
 
-    $.each(gistIds, function(gistId, filename) {
-        var hash = gistId;
+    //$.each(gistIds, function(gistId, filename) {
+    $.each(gistFiles, function(i, filename) {
+        var hash =  filename.substring(0, filename.length-7);
         var link = "https://gist.githubusercontent.com/cannin/" + gistId + "/raw/" + filename;
         var gistLink = "https://gist.github.com/cannin/" + gistId;
 
@@ -177,7 +206,7 @@ $(document).ready(function() {
             //url: "https://api.github.com/gists/" + gistId,
             url: link,
             dataType: "text",
-            async: true,
+            async: false,
             success: function (returnData) {
                 //var description = returnData.description;
                 //var filename = getFirstKey(returnData.files);
@@ -204,10 +233,10 @@ $(document).ready(function() {
                 $newPanel.find(".panel-title-button").html(description);
                 $newPanel.find(".panel-title-button").html('<i class="fa fa-plus-square-o fa-fw"></i>&nbsp;' + description);
 
-                $newPanel.find(".snippetLink").attr("id", gistId);
+                $newPanel.find(".snippetLink").attr("id", hash);
                 $newPanel.find(".snippetRaw").attr("href", gistLink);
 
-                $newPanel.find(".panel-body").append('<pre id="Script' + gistId + '" class="templateClone"><code class="java">' + content + '</code></pre>');
+                $newPanel.find(".panel-body").append('<pre id="Script' + hash + '" class="templateClone"><code class="java">' + content + '</code></pre>');
 
                 $("#accordion").append($newPanel);
 
@@ -224,9 +253,9 @@ $(document).ready(function() {
                     }
                 });
 
-                $('#' + gistId).click(function (event) {
+                $('#' + hash).click(function (event) {
                     //alert($(this).attr("id") + " A: " +  $(this).attr("class") + JSON.stringify($(this)));
-                    editor.setValue($('#Script' + gistId).text());
+                    editor.setValue($('#Script' + hash).text());
                 });
             }
         });
