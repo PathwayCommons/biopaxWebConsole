@@ -1,10 +1,11 @@
+/* NOTE: Must start off at 50/50 between left and right otherwise the right panel tends to disappear on resize */
 #LeftPanel {
-    width: 60%;
+    width: 50%;
     float: left;
 }
 
 #RightPanel {
-    width: 40%;
+    width: 50%;
     float: right;
 }
 
@@ -29,7 +30,8 @@
     border: 1px solid #ADADAD;
     width: 100%;
     float: left;
-    overflow: auto;
+    /*overflow: auto;*/
+    overflow: hidden;
 }
 
 .top {
@@ -122,6 +124,24 @@ h2 {
     margin-right: 5px;
     font-family: "Consolas", "Monaco", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
     font-size: 1em;
+}
+
+.CodeMirror-foldmarker {
+    font-family: arial;
+}
+.CodeMirror-foldgutter {
+    width: .7em;
+}
+.CodeMirror-foldgutter-open,
+.CodeMirror-foldgutter-folded {
+    color: #555;
+    cursor: pointer;
+}
+.CodeMirror-foldgutter-open:after {
+    content: "\25BE";
+}
+.CodeMirror-foldgutter-folded:after {
+    content: "\25B8";
 }
 
 .window_label {

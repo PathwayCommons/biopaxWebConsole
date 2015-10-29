@@ -1,0 +1,2 @@
+// Load a sample test BioPAX File via Simple IO HandlerFileInputStream fin = new FileInputStream("test.owl");BioPAXIOHandler handler = new SimpleIOHandler();Model model = handler.convertFromOWL(fin);// Iterate through all BioPAX Elements and print basic infoSet<BioPAXElement> elementSet = model.getObjects();for (BioPAXElement currentElement : elementSet){String rdfId = currentElement.getRDFId();String className =currentElement.getClass().getName();System.out.println("Element: " + rdfId + ": " + className);}
+

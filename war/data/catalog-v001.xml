@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1437679936510" name="http://pathwaycommons.org/biopax/" uri="akt_signaling_pathway.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1437679936510" name="http://www.biopax.org/examples/myExample" uri="biopax3-short-metabolic-pathway.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1437679936510" name="http://www.reactome.org/biopax/52/109606#" uri="intrinsic_apoptosis_reactome.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1437679936510" name="http://www.reactome.org/biopax/52/419524#" uri="fanconi_anemia_reactome.owl"/>
+    </group>
+</catalog>
